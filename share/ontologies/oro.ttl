@@ -1,20 +1,25 @@
 @prefix : <http://kb.openrobots.org#> .
+@prefix concept: <http://sw.opencyc.org/concept/> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix ex: <http://example.org/> .
+@prefix onyx: <http://www.gsi.upm.es/ontologies/onyx/ns#> .
 @prefix oro: <http://kb.openrobots.org#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix owl2xml: <http://www.w3.org/2006/12/owl2-xml#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix xml: <http://www.w3.org/XML/1998/namespace> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
 @prefix swrl: <http://www.w3.org/2003/11/swrl#> .
 @prefix swrlb: <http://www.w3.org/2003/11/swrlb#> .
-@prefix concept: <http://sw.opencyc.org/concept/> .
-@prefix owl2xml: <http://www.w3.org/2006/12/owl2-xml#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
 @base <http://kb.openrobots.org#> .
 
 <http://kb.openrobots.org> rdf:type owl:Ontology ;
                             dc:creator "CNRS-LAAS" ,
-                                       "PAL Robotics" ;
+                                       "PAL Robotics" ,
+                                       "GSI-UPM" ;
                             dc:date "2022-03-30" ;
                             dc:rights "Creative Commons 3.0 by" ;
                             dc:title "OpenRobots Ontology - Common Sense"@en ;
@@ -2139,6 +2144,8 @@ oro:yellow rdf:type owl:NamedIndividual ,
 # for AMOR Project (UPM - Universidad Politécnica de Madrid) in collaboration with PAL Robotics (2025)
 ###
 
+
+###  Actions and Events that represent Activities to be logged in the SEGB
 oro:ListeningEvent rdf:type owl:Class ;
                   rdfs:subClassOf concept:Event ;
                   rdfs:label "listening event"@en ,
@@ -2146,25 +2153,255 @@ oro:ListeningEvent rdf:type owl:Class ;
                   rdfs:comment "An event in which an agent listens to another agent."@en ,
                               "Un événement dans lequel un agent écoute un autre agent."@fr .
 
-oro:hasSpeaker rdf:type owl:ObjectProperty ;
-               rdfs:domain oro:ListeningEvent ;
-               rdfs:range oro:Agent ;
-               rdfs:label "has speaker"@en ,
-                          "a pour locuteur"@fr ;
-                rdfs:comment "The agent that is speaking in a listening event."@en ,
-                            "L'agent qui parle dans un événement d'écoute."@fr .
+oro:SpeechAction rdf:type owl:Class ;
+          rdfs:subClassOf concept:Action ;
+          rdfs:label "speech action"@en ,
+                     "action de parole"@fr ;
+          rdfs:comment "An action in which an agent speaks."@en ,
+                      "Une action dans laquelle un agent parle."@fr .
 
-oro:hasListener rdf:type owl:ObjectProperty ;
-                rdfs:domain oro:ListeningEvent ;
-                rdfs:range oro:Agent ;
-                rdfs:label "has listener"@en ,
-                           "a pour auditeur"@fr ;
-                rdfs:comment "The agent that is listening in a listening event."@en ,
-                            "L'agent qui écoute dans un événement d'écoute."@fr .
+oro:ShownContentAction rdf:type owl:Class ;
+          rdfs:subClassOf concept:Action ;
+          rdfs:label "show content"@en ,
+                     "montrer le contenu"@fr ;
+          rdfs:comment "A process in which an agent shows content to another agent."@en ,
+                      "Un processus dans lequel un agent montre du contenu à un autre"@fr .
+
+oro:SelectedOptionEvent rdf:type owl:Class ;
+                  rdfs:subClassOf concept:Event ;
+                  rdfs:label "selected option"@en ,
+                             "option sélectionnée"@fr ;
+                  rdfs:comment "An action in which an agent selects an option."@en ,
+                              "Une action dans laquelle un agent sélectionne une option."@fr .
+
+oro:EmotionRecognitionEvent rdf:type owl:Class ;
+                  rdfs:subClassOf concept:Event ;
+                  rdfs:label "emotion recognition process"@en ,
+                             "processus de reconnaissance d'émotion"@fr ;
+                  rdfs:comment "A process in which an agent recognizes the emotions of another agent."@en ,
+                              "Un processus dans lequel un agent reconnaît les émotions d'un autre agent."@fr .
+
+oro:EmotionExpressionAction rdf:type owl:Class ;
+                  rdfs:subClassOf concept:Action ;
+                  rdfs:label "emotion expression action"@en ,
+                             "action d'expression d'émotion"@fr ;
+                  rdfs:comment "An action in which an agent expresses an emotion."@en ,
+                              "Une action dans laquelle un agent exprime une émotion."@fr .
+
+oro:DecisionMakingAction rdf:type owl:Class ;
+          rdfs:subClassOf concept:Action ;
+          rdfs:label "decision making process"@en ,
+                     "processus de prise de décision"@fr ;
+          rdfs:comment "A process in which an agent makes a decision."@en ,
+                      "Un processus dans lequel un agent prend une décision."@fr .
+
+oro:InformationRetrievalAction rdf:type owl:Class ;
+          rdfs:subClassOf concept:Action ;
+          rdfs:label "information retrieval process"@en ,
+                     "processus de récupération d'information"@fr ;
+          rdfs:comment "A process in which an agent retrieves information."@en ,
+                      "Un processus dans lequel un agent récupère de l'information."@fr .
+
+oro:MovementAction rdf:type owl:Class ;
+          rdfs:subClassOf concept:Action ;
+          rdfs:label "movement action"@en ,
+                     "action de mouvement"@fr ;
+          rdfs:comment "An action in which an agent moves."@en ,
+                      "Une action dans laquelle un agent se déplace."@fr .
+
+oro:GestureAction rdf:type owl:Class ;
+          rdfs:subClassOf concept:Action ;
+          rdfs:label "gesture action"@en ,
+                     "action de geste"@fr ;
+          rdfs:comment "An action in which an agent makes a gesture."@en ,
+                      "Une action dans laquelle un agent fait un geste."@fr .
+
+### Classes for messages (they are not activities but they are logged in the SEGB too)
 
 oro:Message rdf:type owl:Class ;
-           rdfs:subClassOf concept:Message ;
-           rdfs:label "message"@en ,
-                      "message"@fr ;
-           rdfs:comment "A situation in which an agent sends a message to another agent."@en ,
-                       "Une situation dans laquelle un agent envoie un message à un autre agent."@fr .
+          rdfs:subClassOf concept:Message ;
+          rdfs:label "message"@en ,
+                     "message"@fr ;
+          rdfs:comment "A situation in which an agent sends a message to another agent."@en ,
+                      "Une situation dans laquelle un agent envoie un message à un autre agent."@fr .
+
+oro:InitialMessage rdf:type owl:Class ;
+          rdfs:subClassOf oro:Message ;
+          rdfs:label "initial message"@en ,
+                     "message initial"@fr ;
+          rdfs:comment "A situation in which an agent sends an initial message to another agent."@en ,
+                      "Une situation dans laquelle un agent envoie un message initial à un autre agent."@fr .
+
+oro:ResponseMessage rdf:type owl:Class ;
+          rdfs:subClassOf oro:Message ;
+          rdfs:label "response message"@en ,
+                     "message de réponse"@fr ;
+          rdfs:comment "A situation in which an agent sends a response message to another agent."@en ,
+                      "Une situation dans laquelle un agent envoie un message de réponse à un autre agent."@fr .
+
+###  Properties for the new classes
+oro:hasSpeaker rdf:type owl:ObjectProperty ;
+          rdfs:domain  [
+              a owl:Class ;
+              owl:unionOf (
+                oro:SpeechAction 
+                oro:ListeningEvent
+              )
+            ] ;
+          rdfs:range oro:Agent ;
+          rdfs:label "has speaker"@en ,
+                     "a pour locuteur"@fr ;
+          rdfs:comment "The agent that is speaking in a listening event."@en ,
+                      "L'agent qui parle dans un événement d'écoute."@fr .
+
+oro:hasListener rdf:type owl:ObjectProperty ;
+          rdfs:domain  [
+              a owl:Class ;
+              owl:unionOf (
+                oro:SpeechAction 
+                oro:ListeningEvent
+              )
+            ] ;
+          rdfs:range oro:Agent ;
+          rdfs:label "has listener"@en ,
+                     "a pour auditeur"@fr ;
+          rdfs:comment "The agent that is listening in a listening event."@en ,
+                      "L'agent qui écoute dans un événement d'écoute."@fr .
+
+oro:hasMessage rdf:type owl:ObjectProperty ;
+          rdfs:domain  [
+              a owl:Class ;
+              owl:unionOf (
+                oro:SpeechAction 
+                oro:ListeningEvent
+              )
+            ] ;
+          rdfs:range [
+              a owl:Class ;
+              owl:unionOf (
+                oro:Message 
+                oro:InitialMessage
+                oro:ResponseMessage
+              )
+            ] ;
+          rdfs:label "has message"@en ,
+                     "a pour message"@fr ;
+          rdfs:comment "The message that is being sent in a speech action or listening event."@en ,
+                      "Le message qui est envoyé dans une action de parole ou un événement d'écoute."@fr .
+
+oro:hasText rdf:type owl:DatatypeProperty ;
+          rdfs:domain [
+              a owl:Class ;
+              owl:unionOf (
+                oro:Message 
+                oro:InitialMessage
+                oro:ResponseMessage
+              )
+            ] ;
+          rdfs:range xsd:string ;
+          rdfs:label "has text"@en ,
+                     "a pour texte"@fr ;
+          rdfs:comment "The text of a message."@en ,
+                      "Le texte d'un message."@fr .
+
+oro:previousMessage rdf:type owl:ObjectProperty ;
+          rdfs:domain oro:ResponseMessage ;
+          rdfs:range oro:Message ;
+          rdfs:label "previous message"@en ,
+                     "message précédent"@fr ;
+          rdfs:comment "The message that was sent before the current message."@en ,
+                      "Le message qui a été envoyé avant le message actuel."@fr .
+
+oro:nextMessage rdf:type owl:ObjectProperty ;
+          rdfs:domain oro:Message ;
+          rdfs:range oro:ResponseMessage ;
+          owl:inverseOf oro:previousMessage ;
+          rdfs:label "next message"@en ,
+                     "message suivant"@fr ;
+          rdfs:comment "The message that was sent after the current message."@en ,
+                      "Le message qui a été envoyé après le message actuel."@fr .
+
+oro:hasContent rdf:type owl:ObjectProperty ;
+          rdfs:domain oro:ShownContentAction ;
+          rdfs:range owl:Thing ;
+          rdfs:label "has content"@en ,
+                     "a pour contenu"@fr ;
+          rdfs:comment "The message that is being shown in a show content action."@en ,
+                      "Le message qui est montré dans une action de montrer le contenu."@fr .
+
+oro:query rdf:type owl:DatatypeProperty ;
+          rdfs:domain oro:InformationRetrievalAction ;
+          rdfs:range xsd:string ;
+          rdfs:label "queried topic"@en ,
+                     "sujet interrogé"@fr ;
+          rdfs:comment "The topic that an agent is querying in an information retrieval process."@en ,
+                      "Le sujet que l'agent interroge dans un processus de récupération d'information."@fr .
+
+oro:endPoint rdf:type owl:DatatypeProperty ;
+          rdfs:domain oro:InformationRetrievalAction ;
+          rdfs:range xsd:string ;
+          rdfs:label "end point"@en ,
+                     "point final"@fr ;
+          rdfs:comment "The endpoint where the query is made in an information retrieval process."@en ,
+                      "Le point final où la requête est faite dans un processus de récupération d'information."@fr .
+
+oro:expressedEmotion rdf:type owl:ObjectProperty ;
+          rdfs:domain oro:EmotionExpressionAction ;
+          rdfs:range [
+              a owl:Class ;
+              owl:unionOf (
+                oro:EmotionalState 
+                onyx:Emotion 
+                onyx:EmotionCategory
+              )
+            ] ;
+          rdfs:label "expressed emotion"@en ,
+                     "émotion exprimée"@fr ;
+          rdfs:comment "The emotion that an agent is expressing in an emotion expression action."@en ,
+                      "L'émotion que l'agent exprime dans une action d'expression d'émotion."@fr .
+
+oro:initialLocation rdf:type owl:ObjectProperty ;
+          rdfs:domain oro:MovementAction ;
+          rdfs:range oro:Location ;
+          rdfs:label "initial location"@en ,
+                     "lieu initial"@fr ;
+          rdfs:comment "The location where an agent is moving from in a movement action."@en ,
+                      "L'endroit d'où un agent se déplace dans une action de mouvement."@fr .
+
+oro:goalLocation rdf:type owl:ObjectProperty ;
+          rdfs:domain oro:MovementAction ;
+          rdfs:range oro:Location ;
+          rdfs:label "goal location"@en ,
+                     "lieu de destination"@fr ;
+          rdfs:comment "The location where an agent is moving in a movement action."@en ,
+                      "L'endroit où un agent se déplace dans une action de mouvement."@fr .
+
+oro:usesBodyPart rdf:type owl:ObjectProperty ;
+          rdfs:domain oro:GestureAction ;
+          rdfs:range oro:BodyPart ;
+          rdfs:label "uses body part"@en ,
+                     "utilise la partie du corps"@fr ;
+          rdfs:comment "The body part that an agent uses in a gesture action."@en ,
+                      "La partie du corps que l'agent utilise dans une action de geste."@fr .
+
+oro:selectedOption rdf:type owl:ObjectProperty ;
+          rdfs:domain oro:SelectedOptionEvent ;
+          rdfs:range [
+              a owl:Class ;
+              owl:unionOf (
+                prov:Entity 
+                schema:Answer
+              )
+            ] ;
+          rdfs:label "selected option"@en ,
+                     "option sélectionnée"@fr ;
+          rdfs:comment "The option that an agent selects in a selected option event."@en ,
+                      "L'option que l'agent sélectionne dans un événement d'option sélectionnée."@fr .
+
+oro:hasUser rdf:type owl:ObjectProperty ;
+          rdfs:domain oro:SelectedOptionEvent ;
+          rdfs:range oro:Agent ;
+          rdfs:label "has user"@en ,
+                     "a pour utilisateur"@fr ;
+          rdfs:comment "The user that selects an option in a selected option event."@en ,
+                      "L'utilisateur qui sélectionne une option dans un événement d'option sélectionnée."@fr .
