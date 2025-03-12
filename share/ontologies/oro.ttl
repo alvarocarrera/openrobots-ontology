@@ -2153,9 +2153,12 @@ oro:ListeningEvent rdf:type owl:Class ;
                   rdfs:comment "An event in which an agent listens to another agent."@en ,
                               "Un événement dans lequel un agent écoute un autre agent."@fr .
 
-oro:ResponseGenerationAction rdf:tye owl:Class.
-
-## TODO: falta esto
+oro:ResponseGenerationAction rdf:tye owl:Class ;
+          rdfs:subClassOf concept:Action ;
+          rdfs:label "response generation action"@en ,
+                     "action de génération de réponse"@fr ;
+          rdfs:comment "An action in which an agent generates a response."@en ,
+                      "Une action dans laquelle un agent génère une réponse."@fr .
 
 oro:SpeechAction rdf:type owl:Class ;
           rdfs:subClassOf concept:Action ;
@@ -2163,6 +2166,13 @@ oro:SpeechAction rdf:type owl:Class ;
                      "action de parole"@fr ;
           rdfs:comment "An action in which an agent speaks."@en ,
                       "Une action dans laquelle un agent parle."@fr .
+
+oro:DetectedHumanEvent a owl:Class ;
+          rdfs:subClassOf concept:Event ;
+          rdfs:label "detected human event"@en ,
+                     "événement de détection d'humain"@fr ;
+          rdfs:comment "An event in which an agent detects a human."@en ,
+                      "Un événement dans lequel un agent détecte un humain."@fr .
 
 oro:ShownContentAction rdf:type owl:Class ;
           rdfs:subClassOf concept:Action ;
@@ -2388,6 +2398,14 @@ oro:usesBodyPart rdf:type owl:ObjectProperty ;
           rdfs:comment "The body part that an agent uses in a gesture action."@en ,
                       "La partie du corps que l'agent utilise dans une action de geste."@fr .
 
+oro:doGesture rdf:type owl:DatatypeProperty ;
+          rdfs:domain oro:GestureAction ;
+          rdfs:range xsd:string ;
+          rdfs:label "do gesture"@en ,
+                     "fait un geste"@fr ;
+          rdfs:comment "The gesture that an agent makes in a gesture action."@en ,
+                      "Le geste que l'agent fait dans une action de geste."@fr .
+
 oro:selectedOption rdf:type owl:ObjectProperty ;
           rdfs:domain oro:SelectedOptionEvent ;
           rdfs:range [
@@ -2410,4 +2428,18 @@ oro:hasUser rdf:type owl:ObjectProperty ;
           rdfs:comment "The user that selects an option in a selected option event."@en ,
                       "L'utilisateur qui sélectionne une option dans un événement d'option sélectionnée."@fr .
 
-## TODO: añadir property para enlazar análisis de emociones con el usuario
+oro:analysedAgent rdf:type owl:ObjectProperty ;
+          rdfs:domain oro:EmotionRecognitionEvent ;
+          rdfs:range oro:Agent ;
+          rdfs:label "analysed agent"@en ,
+                     "agent analysé"@fr ;
+          rdfs:comment "The agent whose emotions are being analysed in an emotion recognition event."@en ,
+                      "L'agent dont les émotions sont analysées dans un événement de reconnaissance d'émotion."@fr .
+
+oro:detectedHuman rdf:type owl:ObjectProperty ;
+          rdfs:domain oro:DetectedHumanEvent ;
+          rdfs:range oro:Human ;
+          rdfs:label "detected human"@en ,
+                     "humain détecté"@fr ;
+          rdfs:comment "The human that is detected in a person detected event."@en ,
+                      "L'humain qui est détecté dans un événement de personne détectée."@fr .
