@@ -2153,6 +2153,10 @@ oro:ListeningEvent rdf:type owl:Class ;
                   rdfs:comment "An event in which an agent listens to another agent."@en ,
                               "Un événement dans lequel un agent écoute un autre agent."@fr .
 
+oro:ResponseGenerationAction rdf:tye owl:Class.
+
+## TODO: falta esto
+
 oro:SpeechAction rdf:type owl:Class ;
           rdfs:subClassOf concept:Action ;
           rdfs:label "speech action"@en ,
@@ -2405,3 +2409,5 @@ oro:hasUser rdf:type owl:ObjectProperty ;
                      "a pour utilisateur"@fr ;
           rdfs:comment "The user that selects an option in a selected option event."@en ,
                       "L'utilisateur qui sélectionne une option dans un événement d'option sélectionnée."@fr .
+
+## TODO: añadir property para enlazar análisis de emociones con el usuario
